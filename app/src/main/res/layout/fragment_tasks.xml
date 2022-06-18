@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.TasksFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.tasks.viewmodel.TasksViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+<!--        Below we will use data binding to set the name of the new task.-->
+        <EditText
+            android:id="@+id/task_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="@string/enter_a_task_name"
+            android:fontFamily="casual"
+            android:text="@={viewModel.newTaskName}"/>
+<!--        Calls the addTask method from the viewModel when the button is clicked.-->
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/save_task"
+            android:fontFamily="casual"
+            android:onClick="@{() -> viewModel.addTask()}"/>
+
+        <TextView
+            android:id="@+id/tasks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:text="@{viewModel.tasksString}"/>
+
+    </LinearLayout>
+
+</layout>
