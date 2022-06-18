@@ -23,18 +23,20 @@ abstract class TaskDatabase: RoomDatabase() {
     companion object {
         @Volatile
         private var INSTANCE: TaskDatabase? = null
-                // returns an Instance of TaskDatabase
-                // builds the database if it doesnt exist
-                fun getInstance(context: Context): TaskDatabase {
-                        if(INSTANCE == null) {
-                            INSTANCE = Room.databaseBuilder(
-                                context.applicationContext,
-                                TaskDatabase::class.java,
-                                "task_database"
-                            ).build()
-                        }
-                    return INSTANCE as TaskDatabase
-                }
-    }
 
+        // returns an Instance of TaskDatabase
+        // builds the database if it doesn't exist
+        fun getInstance(context: Context): TaskDatabase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    TaskDatabase::class.java,
+                    "task_database"
+                ).fallbackToDestructiveMigration()
+                    .build()
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
 }
