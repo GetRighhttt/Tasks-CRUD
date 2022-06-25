@@ -3,11 +3,13 @@ package com.example.tasks.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.view.animation.AnimationUtils.loadAnimation
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tasks.R
+import com.example.tasks.databinding.TaskItemBinding
 import com.example.tasks.model.Task
 
 /**
@@ -29,29 +31,23 @@ class TaskItemAdapter : RecyclerView.Adapter<TaskItemAdapter.TaskItemViewHolder>
 
 
     // ViewHolder class we need to set up our ViewHolder
-    // Rootview is whatever the layout starts with for the list item
-    class TaskItemViewHolder(private val rootView: CardView)
-        :RecyclerView.ViewHolder(rootView) {
+    // we're passing in databinding to inflate the root and the cardview needed for animations
+    class TaskItemViewHolder(private val binding: TaskItemBinding)
+        :RecyclerView.ViewHolder(binding.root) {
 
-        val taskName: TextView = rootView.findViewById(R.id.task_name)
-        val taskDone: CheckBox = rootView.findViewById(R.id.task_done)
-        val cardView: CardView = rootView.findViewById(R.id.list_item)
+        val cardView: CardView = binding.listItem
 
-
-        // set the text to the taskName from the entity table in our bind method
-        // set the checkbox view also
+        // bind the task from the database to the recyclerview item
         fun bind(item: Task) {
-            taskName.text = item.taskName
-            taskDone.isChecked = item.taskDone
+            binding.task = item
         }
 
         // static object to inflate the layout and create the ViewHolder
         companion object {
             fun inflateFrom(parent: ViewGroup): TaskItemViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater
-                    .inflate(R.layout.task_item, parent, false) as CardView
-                return TaskItemViewHolder(view)
+                val binding = TaskItemBinding.inflate(layoutInflater, parent, false)
+                return TaskItemViewHolder(binding)
             }
         }
 

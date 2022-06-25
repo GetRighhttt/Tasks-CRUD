@@ -1,35 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/list_item"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:elevation="10dp"
-    app:cardCornerRadius="8dp">
+<layout    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<!--    Implemented databinding to update the views -->
+    <data>
 
-    <LinearLayout
+        <variable
+            name="task"
+            type="com.example.tasks.model.Task"/>
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_margin="8dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="8dp">
 
-        <TextView
-            android:id="@+id/task_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:padding="8dp"/>
+            android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/task_done"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:padding="8dp"
-            android:clickable="false"
-            android:text="Done?"/>
+<!--            Now we are going to use databinding to set the layout's views-->
 
-    </LinearLayout>
+<!--            Sets the view's text to the task name-->
+            <TextView
+                android:id="@+id/task_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:padding="8dp"
+                android:text="@{task.taskName}"/>
 
-</androidx.cardview.widget.CardView>
+<!--            If the task is complete the checkbox will be checked.-->
+            <CheckBox
+                android:id="@+id/task_done"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:padding="8dp"
+                android:clickable="false"
+                android:text="Done?"
+                android:checked="@{task.taskDone}"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
+
