@@ -20,15 +20,19 @@ class TasksViewModel(val dao: TaskDao) : ViewModel() {
      It also keeps the record up to date
      */
     val tasks = dao.getAll()
+    // data binding for tasksString seen in the XML file.
+    // we call format tasks and pass in the tasks
     val tasksString = Transformations.map(tasks) {
         tasks -> formatTasks(tasks)
     }
 
 
     // method to insert task into the table
+    // Used in our fragment_tasks.xml with our button in our "onClick"
     fun addTask() {
         CoroutineScope(Dispatchers.IO).launch {
             val task = Task()
+            // adding task by data binding in our fragment_tasks
             task.taskName = newTaskName
             dao.insert(task)
         }

@@ -26,6 +26,7 @@
             android:hint="@string/enter_a_task_name"
             android:fontFamily="casual"
             android:text="@={viewModel.newTaskName}"/>
+
 <!--        Calls the addTask method from the viewModel when the button is clicked.-->
         <Button
             android:id="@+id/save_button"
