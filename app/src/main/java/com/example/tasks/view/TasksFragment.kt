@@ -31,11 +31,9 @@ class TasksFragment : Fragment() {
          */
         val application = requireNotNull(this.activity).application
         val dao = TaskDatabase.getInstance(application).taskDao
-
         val viewModelFactory = TaskViewModelFactory(dao)
         val viewModel = ViewModelProvider(
             this, viewModelFactory).get(TasksViewModel::class.java)
-
         // data binding so the layout can get access to the viewModel's properties
         binding.viewModel = viewModel
         // data binding so the fragment can respond to updates with LiveData

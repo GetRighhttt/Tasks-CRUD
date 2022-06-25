@@ -37,7 +37,7 @@ class TasksViewModel(val dao: TaskDao) : ViewModel() {
     // method used to format a list of Tasks into a string
     fun formatTasks(tasks: List<Task>): String {
         return tasks.fold("") {
-            str, item -> str + '\n' + formatTasks(tasks)
+            str, item -> str + '\n' + formatTask(item)
         }
     }
 

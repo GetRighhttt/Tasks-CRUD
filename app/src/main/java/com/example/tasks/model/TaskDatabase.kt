@@ -27,15 +27,18 @@ abstract class TaskDatabase: RoomDatabase() {
         // returns an Instance of TaskDatabase
         // builds the database if it doesn't exist
         fun getInstance(context: Context): TaskDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    TaskDatabase::class.java,
-                    "task_database"
-                ).fallbackToDestructiveMigration()
-                    .build()
-                INSTANCE = instance
-                instance
+            synchronized(this) {
+                var instance = INSTANCE
+                if(instance == null) {
+                    instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        TaskDatabase::class.java,
+                        "task_database"
+                    ).fallbackToDestructiveMigration()
+                        .build()
+                    INSTANCE = instance
+                }
+                return instance
             }
         }
     }
