@@ -21,12 +21,15 @@ class TasksViewModel(val dao: TaskDao) : ViewModel() {
      */
     val tasks = dao.getAll()
     // data binding for tasksString seen in the XML file.
-    // we call format tasks and pass in the tasks
-    val tasksString = Transformations.map(tasks) {
-        tasks -> formatTasks(tasks)
-    }
+//    // we call format tasks and pass in the tasks
+//    val tasksString = Transformations.map(tasks) {
+//        tasks -> formatTasks(tasks)
+//    }
 
-
+    /**
+     * We made changes to the previous version so everything before the recyclerview implementation
+     * has been commented out.
+     */
     // method to insert task into the table
     // Used in our fragment_tasks.xml with our button in our "onClick"
     fun addTask() {
@@ -39,17 +42,17 @@ class TasksViewModel(val dao: TaskDao) : ViewModel() {
     }
 
     // method used to format a list of Tasks into a string
-    fun formatTasks(tasks: List<Task>): String {
-        return tasks.fold("") {
-            str, item -> str + '\n' + formatTask(item)
-        }
-    }
+//    fun formatTasks(tasks: List<Task>): String {
+//        return tasks.fold("") {
+//            str, item -> str + '\n' + formatTask(item)
+//        }
+//    }
 
     // method that formats each tasks into a string individually
-    fun formatTask(task: Task): String {
-        var str = "ID: ${task.taskId}"
-        str += '\n' + "Name: ${task.taskName}"
-        str += '\n' + "Complete: ${task.taskDone}"
-        return str
-    }
+//    fun formatTask(task: Task): String {
+//        var str = "ID: ${task.taskId}"
+//        str += '\n' + "Name: ${task.taskName}"
+//        str += '\n' + "Complete: ${task.taskDone}"
+//        return str
+//    }
 }
