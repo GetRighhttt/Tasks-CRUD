@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.TasksFragment">
 
+<!--    Example of data binding:-->
+<!--    We use data binding here to access properties of the ViewModel-->
     <data>
         <variable
             name="viewModel"
