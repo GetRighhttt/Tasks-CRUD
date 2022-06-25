@@ -35,6 +35,7 @@ class TaskItemAdapter : RecyclerView.Adapter<TaskItemAdapter.TaskItemViewHolder>
     class TaskItemViewHolder(private val binding: TaskItemBinding)
         :RecyclerView.ViewHolder(binding.root) {
 
+        // set the cardview item to the id of the cardview to use animation later on
         val cardView: CardView = binding.listItem
 
         // bind the task from the database to the recyclerview item
@@ -52,7 +53,7 @@ class TaskItemAdapter : RecyclerView.Adapter<TaskItemAdapter.TaskItemViewHolder>
         }
 
         /**
-         * It's better to hold all the code for the viewholder underneath the overriden methods.
+         * It's better to hold all the code for the viewholder outside the overriden methods.
          * It paints a more clear picture for separation of concerns.
          */
     }
