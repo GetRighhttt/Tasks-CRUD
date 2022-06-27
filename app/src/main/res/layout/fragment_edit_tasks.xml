@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<!--Going to use data binding to update the edit text with the viewModel-->
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".view.EditTasksFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.tasks.viewmodel.EditTaskViewModel" />
+
+    </data>
+
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,12 +25,47 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/task_id"
+<!--        Data binding for our edit text to display the task from -->
+<!--        the TasksFragment. Going to use this to update and delete task-->
+        <EditText
+            android:id="@+id/task_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:inputType="text"
+            android:text="@{viewModel.task.taskName}"/>
+
+        <CheckBox
+            android:id="@+id/task_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textSize="16sp"
+            android:checked="@={viewModel.task.taskDone}"/>
+
+        <Button
+            android:id="@+id/update_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/update_task"
+            android:backgroundTint="@color/design_default_color_primary_variant"
+            android:padding="16dp"
+            android:onClick="@{() -> viewModel.updateTask()}"/>
+
+        <Button
+            android:id="@+id/delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/delete_task"
+            android:backgroundTint="@color/design_default_color_primary_variant"
+            android:padding="16dp"
+            android:onClick="@{() -> viewModel.deleteTask()}"/>
+
 
     </LinearLayout>
 
 </FrameLayout>
+
+</layout>
