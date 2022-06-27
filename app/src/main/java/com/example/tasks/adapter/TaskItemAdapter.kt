@@ -20,7 +20,10 @@ import com.example.tasks.model.Task
 
 // Extending RecyclerView.Adapter allows the class to act as an adapter.
 // We use generics to say our adapter works with the viewholder inner class
-class TaskItemAdapter : RecyclerView.Adapter<TaskItemAdapter.TaskItemViewHolder>() {
+// We pass in the id of the task from the entity table, and use that to make the item's
+// respond to clicks
+class TaskItemAdapter(private val clickListener: (taskId: Long) -> Unit)
+    : RecyclerView.Adapter<TaskItemAdapter.TaskItemViewHolder>() {
 
     // setter for the recyclerview adapter
     var data = listOf<Task>()
@@ -39,8 +42,12 @@ class TaskItemAdapter : RecyclerView.Adapter<TaskItemAdapter.TaskItemViewHolder>
         val cardView: CardView = binding.listItem
 
         // bind the task from the database to the recyclerview item
-        fun bind(item: Task) {
+        // we set the onclicklistener here with the id of the task from the entity table
+        fun bind(item: Task, clickListener: (taskId: Long) -> Unit) {
             binding.task = item
+            binding.root.setOnClickListener{
+                clickListener(item.taskId)
+            }
         }
 
         // static object to inflate the layout and create the ViewHolder
@@ -66,7 +73,9 @@ class TaskItemAdapter : RecyclerView.Adapter<TaskItemAdapter.TaskItemViewHolder>
     // bind the ViewHolder to the position of the views in the RecyclerView
     override fun onBindViewHolder(holder: TaskItemViewHolder, position: Int) {
         val item = data[position]
-        holder.bind(item) // call the bind method to bind the item to the ViewHolder
+        // call the bind method to bind the item to the ViewHolder
+        // and also set the clicklistener with that bind
+        holder.bind(item, clickListener)
 
         // animation for the RecyclerView
         holder.cardView.startAnimation(AnimationUtils

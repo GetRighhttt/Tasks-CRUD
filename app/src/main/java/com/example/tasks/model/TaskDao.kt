@@ -6,10 +6,12 @@ import androidx.room.*
 // Dao = data access object
 // Interface used to interact with the table using SQL methodology
 // suspend used to mark coroutines
-// @Query returns live data so we dont need suspend for those
+// @Query returns live data so we don't need suspend for those
+
 @Dao
 interface TaskDao {
-    @Insert
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(task: Task)
 
     @Update

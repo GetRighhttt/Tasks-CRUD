@@ -5,10 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.tasks.adapter.TaskItemAdapter
 import com.example.tasks.databinding.FragmentTasksBinding
+import com.example.tasks.model.Task
 import com.example.tasks.model.TaskDatabase
 import com.example.tasks.viewmodel.TaskViewModelFactory
 import com.example.tasks.viewmodel.TasksViewModel
@@ -42,7 +46,11 @@ class TasksFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         // Now we tell the recyclerview to use the adapter
-        val adapter = TaskItemAdapter()
+        // And use the clickListener set in the adapter's constructor to send infro from
+        // the task fragment to edit task fragment
+        val adapter = TaskItemAdapter { taskId ->
+            viewModel.onTaskClicked(taskId)
+        }
         binding.tasksList.adapter = adapter
 
         // observe the ViewModel's tasks property and make changes to the list accordingly
@@ -51,6 +59,17 @@ class TasksFragment : Fragment() {
         viewModel.tasks.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.data = it
+            }
+        })
+
+        // Now we are going to use the viewmodel's navigatetotask method to go from one fragment
+        // to the next fragment, and we're passing the taskId with this method.
+        viewModel.navigateToTask.observe(viewLifecycleOwner, Observer { taskId ->
+            taskId?.let {
+                val action = TasksFragmentDirections
+                    .actionTasksFragmentToEditTasksFragment(taskId)
+                view.findNavController().navigate(action)
+                viewModel.onTaskNavigated()
             }
         })
 
