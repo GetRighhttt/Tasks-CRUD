@@ -33,6 +33,7 @@ class EditTasksFragment : Fragment() {
         val taskId = EditTasksFragmentArgs.fromBundle(requireArguments()).taskId
 
         // needed to create an EditTaskViewlModelFactory
+        // and grab an instance of the database
         val application = requireNotNull(this.activity).application
         val dao = TaskDatabase.getInstance(application).taskDao
 

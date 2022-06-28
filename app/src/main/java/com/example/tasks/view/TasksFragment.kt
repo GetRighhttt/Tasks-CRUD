@@ -31,8 +31,9 @@ class TasksFragment : Fragment() {
         val view = binding.root
 
         /**
-         * Below, we are going to build the database in the first two lines if it doesn't already
-         * exist. Then we are getting a reference to the taskDao property.
+         * Below, we are going to get an instance of the
+         * database in the first two lines if it doesn't already exist.
+         * Then we are getting a reference to the taskDao property.
          * After that, we call the ViewModelProvider to provide the ViewModel to the Fragment.
          */
         val application = requireNotNull(this.activity).application
