@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:hint="@string/enter_a_task_name"
-            android:fontFamily="casual"
             android:text="@={viewModel.newTaskName}"/>
 
 <!--        Calls the addTask method from the viewModel when the button is clicked.-->
@@ -35,7 +34,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/save_task"
-            android:fontFamily="casual"
             android:onClick="@{() -> viewModel.addTask()}"/>
 
         <androidx.recyclerview.widget.RecyclerView
